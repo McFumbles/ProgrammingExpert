@@ -96,13 +96,14 @@ class FileSystem:
       current_node = self.root
       for node_name in node_names:
         if not isinstance(current_node, Directory):
-          raise ValueError
+          raise ValueError(f"{current_node.name} isn't a directory.")
         
         if node_name not in current_node.children:
           raise ValueError(f"Node not found: {node_name}.")
         
         current_node = current_node.children[node_name]
-
+      
+      return current_node
 class Node:
     def __init__(self, name):
         self.name = name
