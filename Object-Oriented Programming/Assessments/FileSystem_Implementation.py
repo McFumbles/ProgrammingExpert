@@ -56,7 +56,21 @@ class FileSystem:
         return before_last_node.children[file_name].contents
 
     def delete_directory_or_file(self, path):
+        FileSystem._validate_path(path)
+
+        path_node_names = path[1:].split("/")
+        middle_node_names = path[:-1]
+        node_to_delete_name = path_node_names[-1]
+
+        before_last_node = self._find_bottom_node(middle_node_names)
+
+        if not isinstance(before_last_node, Directory):
+            raise ValueError(f"{before_last_node.name} is not a directory.")
         
+        if node_to_delete_name not in before_last_node.children:
+            raise ValueError(f"Node not found: {node_to_delete_name}")
+        
+        before_last_node.delete_node(node_to_delete_name)
 
     def size(self):
 
