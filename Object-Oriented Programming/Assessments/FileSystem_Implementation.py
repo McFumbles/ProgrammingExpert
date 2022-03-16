@@ -1,3 +1,6 @@
+from msilib.schema import File
+
+
 class FileSystem:
     def __init__(self):
         self.root = Directory("/")
@@ -16,8 +19,24 @@ class FileSystem:
         
         new_directory = Directory(new_directory_name)
 
-    def create_file(self, path, contents):
+        before_last_node.add_node(new_directory)
 
+    def create_file(self, path, contents):
+        FileSystem._validate_path(path)
+
+        path_node_names = path[1:].split("/")
+        middle_node_names = path[:-1]
+        new_file_name = path_node_names[-1]
+
+        before_last_node = self._find_bottom_node(middle_node_names)
+
+        if not isinstance(before_last_node, Directory):
+            raise ValueError(f"{before_last_node.name} is not a directory.")
+
+        new_file = File(new_file_name)
+        new_file.write_contents(contents)
+
+        before_last_node.add_node(new_file)
 
     def read_file(self, path):
 
