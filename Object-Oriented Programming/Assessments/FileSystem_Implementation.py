@@ -6,7 +6,7 @@ class FileSystem:
         FileSystem._validate_path(path)
   
         path_node_names = path[1:].split("/")
-        middle_node_names = path[:-1]
+        middle_node_names = path_node_names[:-1]
         new_directory_name = path_node_names[-1]
   
         before_last_node = self._find_bottom_node(middle_node_names)
@@ -22,7 +22,7 @@ class FileSystem:
         FileSystem._validate_path(path)
 
         path_node_names = path[1:].split("/")
-        middle_node_names = path[:-1]
+        middle_node_names = path_node_names[:-1]
         new_file_name = path_node_names[-1]
 
         before_last_node = self._find_bottom_node(middle_node_names)
@@ -39,7 +39,7 @@ class FileSystem:
         FileSystem._validate_path(path)
 
         path_node_names = path[1:].split("/")
-        middle_node_names = path[:-1]
+        middle_node_names = path_node_names[:-1]
         file_name = path_node_names[-1]
 
         before_last_node = self._find_bottom_node(middle_node_names)
@@ -56,7 +56,7 @@ class FileSystem:
         FileSystem._validate_path(path)
 
         path_node_names = path[1:].split("/")
-        middle_node_names = path[:-1]
+        middle_node_names = path_node_names[:-1]
         node_to_delete_name = path_node_names[-1]
 
         before_last_node = self._find_bottom_node(middle_node_names)
