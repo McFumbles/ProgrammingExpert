@@ -1,6 +1,3 @@
-from msilib.schema import File
-
-
 class FileSystem:
     def __init__(self):
         self.root = Directory("/")
@@ -43,7 +40,7 @@ class FileSystem:
 
         path_node_names = path[1:].split("/")
         middle_node_names = path[:-1]
-        new_file_name = path_node_names[-1]
+        file_name = path_node_names[-1]
 
         before_last_node = self._find_bottom_node(middle_node_names)
 
@@ -73,7 +70,19 @@ class FileSystem:
         before_last_node.delete_node(node_to_delete_name)
 
     def size(self):
+        size = 0 
+        nodes = [self.root]
+        while len(nodes) > 0:
+            current_node = nodes.pop()
+            if isinstance(current_node, Directory):
+                children = list(current_node.children.values())
+                nodes.extend(children)
+                continue
+            
+            if isinstance(current_node, File):
+                size += len(current_node)
 
+        return size
 
     def __str__(self):
         return f"*** FileSystem ***\n" + self.root.__str__() + "\n***"
