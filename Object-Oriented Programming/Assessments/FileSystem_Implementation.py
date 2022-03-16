@@ -39,10 +39,24 @@ class FileSystem:
         before_last_node.add_node(new_file)
 
     def read_file(self, path):
+        FileSystem._validate_path(path)
 
+        path_node_names = path[1:].split("/")
+        middle_node_names = path[:-1]
+        new_file_name = path_node_names[-1]
+
+        before_last_node = self._find_bottom_node(middle_node_names)
+
+        if not isinstance(before_last_node, Directory):
+            raise ValueError(f"{before_last_node.name} is not a directory.")
+
+        if file_name not in before_last_node.children:
+            raise ValueError(f"File not found: {file_name}.")
+        
+        return before_last_node.children[file_name].contents
 
     def delete_directory_or_file(self, path):
-
+        
 
     def size(self):
 
